@@ -48,7 +48,7 @@ HelperBuddy is a **household services platform** that connects users with verifi
 ### **User APIs**  
 - `POST /api/auth/register` – Register a new user.  
 - `POST /api/auth/login` – Login user and receive a token.  
-- `GET /api/orders` – Fetch user’s order history.  
+- `GET /api/orders` – Fetch user’s order history.
 
 ### **Partner APIs**  
 - `GET /api/partner/orders` – View assigned service orders.  
