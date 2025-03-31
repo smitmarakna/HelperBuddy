@@ -3,8 +3,10 @@ import nodemailer from "nodemailer";
 async function sendEmailToPartner(emails, userDetails, service) {
   if (!emails.length) return;
 
-  let transporter = nodemailer.createTransport({
-    service: "gmail",
+  const transporter = nodemailer.createTransport({
+    host: "smtp.hostinger.com", 
+    port: 465, 
+    secure: true, 
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,

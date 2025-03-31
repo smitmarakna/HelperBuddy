@@ -31,21 +31,21 @@ function parseCookies(req) {
 
 export async function middleware(req) {
   // Rate limiting
-  // const ip =
-  //   req.ip || req.headers.get("x-forwarded-for")?.split(",")[0] || "anonymous";
+  const ip =
+    req.ip || req.headers.get("x-forwarded-for")?.split(",")[0] || "anonymous";
 
-  // //  rate limit check based on IP
-  // const { success ,remaining} = await ratelimit.limit(ip);
+  //  rate limit check based on IP
+  const { success ,remaining} = await ratelimit.limit(ip);
 
   // If rate limit exceeded, return a 429 Too Many Requests response
-  // if (!success || remaining === 0) {
-  //   return  NextResponse.json(
-  //     { error: "Too many requests, please try again later." },
-  //     {
-  //       status: 429,
-  //       headers: { "Content-Type": "application/json" },
-  //     });
-  // }
+  if (!success || remaining === 0) {
+    return  NextResponse.json(
+      { error: "Too many requests, please try again later." },
+      {
+        status: 429,
+        headers: { "Content-Type": "application/json" },
+      });
+  }
 
   const path = req.nextUrl.pathname;
   const method = req.method;
