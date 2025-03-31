@@ -1,11 +1,11 @@
 import nodemailer from "nodemailer";
 const generateOtpMail = (email, otp) => {
-    return {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: "Your HelperBuddy OTP Code",
-      text: `Hello!\n\nYour OTP for HelperBuddy is: ${otp}\n\nThis code will expire in 10 minutes.`,
-      html: `
+  return {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "Your HelperBuddy OTP Code",
+    text: `Hello!\n\nYour OTP for HelperBuddy is: ${otp}\n\nThis code will expire in 10 minutes.`,
+    html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f5f5f5;">
           <div style="max-width: 500px; margin: auto; background-color: #ffffff; padding: 20px; border-radius: 10px; border: 1px solid #ddd;">
             <h2 style="color: #007bff;"> Your HelperBuddy OTP</h2>
@@ -19,11 +19,13 @@ const generateOtpMail = (email, otp) => {
           </div>
         </div>
       `,
-    };
   };
+};
 
 const transporter = nodemailer.createTransport({
-  service: "gmail", 
+  host: "smtp.hostinger.com",
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -31,8 +33,12 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendOtpEmail = async (email, otp) => {
-  const mailOptions = generateOtpMail(email, otp);
-  await transporter.sendMail(mailOptions);
+  try {
+    const mailOptions = generateOtpMail(email, otp);
+    const res = await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default sendOtpEmail;
