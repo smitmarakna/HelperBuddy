@@ -102,7 +102,7 @@ const TrendingServices = () => {
 									aria-label={`View ${service.name}`}
 								>
 									<div className="relative h-48 overflow-hidden rounded-t-lg">
-										<Image
+										<img
 											src={
 												service.image.trim() ||
 												"/placeholder.svg"
